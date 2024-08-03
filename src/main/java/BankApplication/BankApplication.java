@@ -1,7 +1,6 @@
 package BankApplication;
 
 import bank.Bank;
-import bankAccount.BankAccount;
 import customer.Customer;
 import employee.Employee;
 import employee.Operator;
