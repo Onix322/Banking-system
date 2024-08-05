@@ -1,12 +1,9 @@
 package BankApplication;
 
-import bankAccount.BankAccount;
-import customer.Customer;
+import User.customer.Customer;
 import transaction.Transaction;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.List;
-import java.util.Scanner;
 
 public interface CustomerInterface extends UserInterface{
 

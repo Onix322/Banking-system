@@ -1,39 +1,46 @@
 import bank.Bank;
-import bank.Branch;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import BankApplication.BankApplication;
+import utils.DateOfBird;
 
 public class Main {
     public static void main(String[] args) {
 
         System.out.println("Welcome!");
 
-        Branch branch = new Branch("Darmstadt");
+        Bank bank = new Bank("Darmstadt");
 
-        branch.addEmployee(
-                LocalDate.parse("10-12-2020", DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+        Bank.addEmployee(
+                DateOfBird.add("10-12-2020"),
                 "oParola",
                 "Alex",
                 System.currentTimeMillis()
         );
 
-        branch.addEmployee(
-                LocalDate.parse("10-12-2020", DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+        Bank.addEmployee(
+                DateOfBird.add("10-12-2020"),
                 "oParola",
                 "Beatrice",
                 System.currentTimeMillis(),
                 "HR"
         );
 
-        branch.addCustomer(
+        Bank.addCustomer(
                 "DE",
                 "Germany",
                 "Alexandru",
                 "oParola"
         );
 
+        Bank.addCustomer(
+                "DE",
+                "Germany",
+                "Teodora",
+                "oParola"
+        );
+
+
         BankApplication bankApplication = new BankApplication();
         bankApplication.startApp();
+
     }
 }

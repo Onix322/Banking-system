@@ -1,6 +1,6 @@
-package employee;
+package User.employee;
 
-import bank.Bank;
+import bank.Roles;
 
 import java.time.LocalDate;
 
@@ -13,7 +13,7 @@ public class Operator extends Employee{
                     long employeeId, String departament) {
 
         super(dateOfBird, password, name, employeeId);
-        super.setRole(Bank.getRoles()[2]); //role = operator
+        super.setRole(Roles.OPERATOR);
         this.departament = departament;
     }
 

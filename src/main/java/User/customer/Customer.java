@@ -1,6 +1,7 @@
-package customer;
+package User.customer;
 
-import bank.Bank;
+import User.employee.User;
+import bank.Roles;
 import bankAccount.BankAccount;
 
 import java.util.ArrayList;
@@ -8,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class Customer {
+public class Customer implements User {
 
-    private String role;
+    private Roles role;
     private String name;
     private String password;
     private String address;
@@ -22,7 +23,7 @@ public class Customer {
         this.address = address;
         this.name = name;
         this.password = password;
-        this.role = Bank.getRoles()[0];
+        this.role = Roles.CUSTOMER;
     }
 
     public void addAccount(double balance, String IBAN, String currency) {
@@ -34,12 +35,22 @@ public class Customer {
         accounts.removeIf(account -> IBAN.equals(account.getIBAN()));
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAddress() {
@@ -50,20 +61,8 @@ public class Customer {
         this.address = address;
     }
 
-    public String getRole() {
+    public Roles getRole() {
         return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getCountryIndicator() {

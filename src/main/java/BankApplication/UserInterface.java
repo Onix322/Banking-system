@@ -1,9 +1,8 @@
 package BankApplication;
 
 import bank.Bank;
-import bankAccount.BankAccount;
-import customer.Customer;
-import employee.Employee;
+import User.customer.Customer;
+import User.employee.Employee;
 import transaction.Transaction;
 import utils.IBANgenerator;
 
@@ -107,7 +106,10 @@ public interface UserInterface {
         if(amount > 10000) {
 
             System.out.println("\n");
-            System.err.println("\nThe amount is bigger then 10000, it has to wait for an operator to authorize the transaction!!");
+            System.err.println(
+                    "\nThe amount is bigger then 10000." +
+                    "\n You has to wait for an operator to authorize the transaction!!"
+            );
             System.out.println();
 
             pendings.add(
@@ -150,15 +152,15 @@ public interface UserInterface {
     default void addNewCustomer(String countryIndicator, String address,
                                 String name, String password){
 
-        Bank.getCustomers()
-                .add(
-                    new Customer(countryIndicator,address, name, password)
-                );
+        Bank.CUSTOMERS.add(
+                new Customer(countryIndicator,address, name, password)
+        );
 
     }
 
     default void removeCustomer(String name){
-        Bank.getEmployees().removeIf(employee -> employee.getName().equals(name));
+
+        Bank.removeFrom(name, Bank.CUSTOMERS);
     }
 
     default void addAccountToCustomer(Customer customer, double amount, String currency){

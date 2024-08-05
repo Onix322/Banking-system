@@ -1,16 +1,16 @@
-package employee;
+package User.employee;
 
-import bank.Bank;
+import bank.Roles;
 
 import java.time.LocalDate;
 
-public class Employee {
+public class Employee implements User {
 
-    private final long employeeId;
+    private final long EMPLOYEE_ID;
     private String name;
     private String password;
     private LocalDate dateOfBird;
-    private String role;
+    private Roles role;
 
     private static int pushes = 0;
 
@@ -18,10 +18,10 @@ public class Employee {
                     String name, long employeeId) {
 
         this.dateOfBird = dateOfBird;
-        this.role = Bank.getRoles()[1]; //role = employee
+        this.role = Roles.EMPLOYEE;
         this.password = password;
         this.name = name;
-        this.employeeId = employeeId;
+        this.EMPLOYEE_ID = employeeId;
     }
 
     public LocalDate getDateOfBird() {
@@ -32,14 +32,15 @@ public class Employee {
         this.dateOfBird = dateOfBird;
     }
 
-    public String getRole() {
+    public Roles getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Roles role) {
         this.role = role;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -48,6 +49,7 @@ public class Employee {
         this.password = password;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -57,7 +59,7 @@ public class Employee {
     }
 
     public long getEmployeeId() {
-        return employeeId;
+        return EMPLOYEE_ID;
     }
 
     public static int getPushes() {
@@ -76,7 +78,7 @@ public class Employee {
     public String toString() {
         return  "\n" + "Employee{" +
                 "dateOfBird=" + dateOfBird +
-                ", employeeId=" + employeeId +
+                ", employeeId=" + EMPLOYEE_ID +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +

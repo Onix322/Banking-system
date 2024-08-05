@@ -1,96 +1,110 @@
 package bank;
 
-import customer.Customer;
-import employee.Employee;
+import User.employee.User;
+import User.customer.Customer;
+import User.employee.Employee;
+import User.employee.Operator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public sealed abstract class Bank permits Branch{
+public class Bank{
 
-    private static final List<Employee> employees = new ArrayList<>();
-    private static final List<Customer> customers = new ArrayList<>();
-    private static final List<Branch> branches = new ArrayList<>();
-    private static final String[] roles = new String[]{"customer", "employee", "operator"};
+    public static final List<Employee> EMPLOYEES = new ArrayList<>();
+    public static final List<Customer> CUSTOMERS = new ArrayList<>();
+    public static final List<Bank> BRANCHES = new ArrayList<>();
+    public String branch;
 
-    abstract void addEmployee(LocalDate dateOfBird, String password,
-                            String name, long employeeId);
 
-    abstract void addEmployee(LocalDate dateOfBird, String password,
-                              String name, long employeeId, String departament);
+    public Bank(String branch){
+        this.branch = branch;
+        Bank.BRANCHES.add(this);
+    }
 
-    abstract void addCustomer(String countryIndicator, String address, String name, String password);
-    abstract void removeCustomer(String name);
-    abstract Customer getCustomer(String name);
-    abstract void removeEmployee(String name);
-    abstract Employee getEmployee(String name);
+    public static void addEmployee(
+            LocalDate dateOfBird, String password,
+            String name, long employeeId
+    ){
 
-    public static Employee logInEmployee(String name, String password){
+        Bank.EMPLOYEES.add(new Employee(dateOfBird, password, name, employeeId));
+    }
 
-        for (Employee employee : employees){
-            if(name.equals(employee.getName()) &&
-               password.equals(employee.getPassword())){
+    public static void addEmployee(
+            LocalDate dateOfBird, String password,
+            String name, long employeeId, String departament
+    ){
 
-                return employee;
+        Bank.EMPLOYEES.add(new Operator(dateOfBird, password, name, employeeId, departament));
+    }
+
+    public static void addCustomer(
+            String countryIndicator, String address,
+            String name, String password
+    ){
+
+        Bank.CUSTOMERS.add(new Customer(countryIndicator, address, name, password));
+    }
+
+    public static  <E extends User> E getUser(String name, List<E> list){
+
+        E result = null;
+
+        for (E employee : list){
+
+            if(name.equals(employee.getName())) {
+                result = employee;
+            }
+        }
+
+        return result;
+    }
+
+
+    public static <E extends User> void removeFrom(String name, List<E> list){
+
+        list.removeIf(employee -> name.equals(employee.getName()));
+    }
+
+    public static <E extends User> User logIn(List<E> list, String name, String password){
+
+        for(E ele : list){
+
+            if(
+                    name.equals(ele.getName()) &&
+                    password.equals(ele.getPassword())
+            ){
+
+                return ele;
             }
         }
 
         return null;
-    }
-
-    public static Customer logInCustomer(String name, String password){
-
-        for(Customer customer : customers){
-
-            if(name.equals(customer.getName()) && password.equals(customer.getPassword())){
-
-                return customer;
-            }
-        }
-
-        return null;
-    }
-
-    public static List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public static List<Branch> getBranches() {
-        return branches;
-    }
-
-    public static List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public static String[] getRoles(){
-        return roles;
     }
 
     static String listOfEmployees(){
         return "Bank{" + "\n" +
-                "employees=" + employees +
+                "employees=" + EMPLOYEES +
                 '}' + "\n";
     };
 
     static String listOfCustomers() {
         return "Bank{" + "\n" +
-                "customers=" + customers +
+                "customers=" + CUSTOMERS +
                 '}' + "\n";
     }
 
     static String listOfBranches() {
         return "Bank{" + "\n" +
-                "branch=" + branches +
+                "branch=" + BRANCHES +
                 "}" + "\n";
     }
 
     static String bankInfos() {
         return "Bank{" + "\n" +
-                "branches=" + branches + "\n" +
-                "employees=" + employees + "\n" +
-                "customers=" + customers + "\n" +
+                "branches=" + BRANCHES + "\n" +
+                "employees=" + EMPLOYEES + "\n" +
+                "customers=" + CUSTOMERS + "\n" +
                 '}' + "\n" ;
     }
 }

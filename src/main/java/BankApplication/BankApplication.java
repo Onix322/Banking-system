@@ -1,9 +1,10 @@
 package BankApplication;
 
 import bank.Bank;
-import customer.Customer;
-import employee.Employee;
-import employee.Operator;
+import bank.Roles;
+import User.customer.Customer;
+import User.employee.Employee;
+import User.employee.Operator;
 import transaction.Transaction;
 import utils.Console;
 import utils.IBANgenerator;
@@ -13,7 +14,7 @@ import java.util.*;
 
 public class BankApplication implements UserInterface{
 
-    private List<Transaction> pendingTransactions = new ArrayList<>();
+    private final List<Transaction> PENDING_TRANSACTIONS = new ArrayList<>();
     private Object individualFound;
 
     public BankApplication(){}
@@ -43,20 +44,23 @@ public class BankApplication implements UserInterface{
 
     private void getUI(Object individual){
 
-        //model without subClasses
+
         if(individual instanceof Customer){
+
             customerUI((Customer) individual);
-            return;
         }
+        else{
 
-        //model with subClasses
-        if(((Employee) individual).getRole().equals("employee")){
-            employeeUI((Employee) individual);
-            return;
-        }
+            if(((Employee) individual).getRole().equals(Roles.EMPLOYEE)){
 
-        if(((Operator) individual).getRole().equals("operator")){
-            operatorUI((Operator) individual);
+                employeeUI((Employee) individual);
+                return;
+            }
+
+            if(((Operator) individual).getRole().equals(Roles.OPERATOR)){
+
+                operatorUI((Operator) individual);
+            }
         }
     }
 
@@ -69,7 +73,7 @@ public class BankApplication implements UserInterface{
         String name = UserInput.getStringInput("username: ");
         String password = UserInput.getStringInput("password: ");
 
-        individualFound = Bank.logInEmployee(name, password);
+        individualFound = Bank.logIn(Bank.EMPLOYEES, name, password);
 
         if(individualFound == null){
             System.err.println("Wrong user or password! Try again...");
@@ -94,7 +98,7 @@ public class BankApplication implements UserInterface{
 
         Console.clear();
 
-        individualFound = Bank.logInCustomer(name, password);
+        individualFound = Bank.logIn(Bank.CUSTOMERS, name, password);
 
         while(individualFound != null){
 
@@ -173,7 +177,7 @@ public class BankApplication implements UserInterface{
                         break;
                     }
 
-                    deposit(customer, IBAN, amount, pendingTransactions);
+                    deposit(customer, IBAN, amount, PENDING_TRANSACTIONS);
                     break;
                 }
 
@@ -198,7 +202,7 @@ public class BankApplication implements UserInterface{
                         break;
                     }
 
-                    withdraw(customer, IBAN, amount, pendingTransactions);
+                    withdraw(customer, IBAN, amount, PENDING_TRANSACTIONS);
                     break;
                 }
 
@@ -266,32 +270,32 @@ public class BankApplication implements UserInterface{
 
             case 2 -> {
 
-                if(pendingTransactions.toArray().length <= 0){
+                if(PENDING_TRANSACTIONS.toArray().length == 0){
                     System.err.println("There are not any pending transactions yet!");
                     operatorUI(operator);
                     break;
                 }
 
-                for (int i = 0; i < pendingTransactions.toArray().length; i++) {
-                    System.out.println(i + ". " + pendingTransactions.get(i));
+                for (int i = 0; i < PENDING_TRANSACTIONS.toArray().length; i++) {
+                    System.out.println(i + ". " + PENDING_TRANSACTIONS.get(i));
                 }
 
                 byte indexTransaction = UserInput.getChoiceInput();
 
-                if(indexTransaction >= pendingTransactions.toArray().length){
+                if(indexTransaction >= PENDING_TRANSACTIONS.toArray().length){
                     operatorUI(operator);
                     return;
                 }
 
-                authorizeTransaction(pendingTransactions, indexTransaction);
-                pendingTransactions.remove(indexTransaction);
+                authorizeTransaction(PENDING_TRANSACTIONS, indexTransaction);
+                PENDING_TRANSACTIONS.remove(indexTransaction);
 
                 System.out.println("Transaction has been authorized!");
             }
 
             case 3 -> {
                 System.out.println();
-                if(pendingTransactions.toArray().length <= 0){
+                if(PENDING_TRANSACTIONS.toArray().length == 0){
                     System.err.println("There are not any pending transactions yet!");
                     operatorUI(operator);
                     break;
@@ -299,7 +303,7 @@ public class BankApplication implements UserInterface{
 
                 byte indexTransaction = UserInput.getChoiceInput();
 
-                rejectTransaction(pendingTransactions, indexTransaction);
+                rejectTransaction(PENDING_TRANSACTIONS, indexTransaction);
                 System.out.println("Transaction has been rejected!");
 
             }
@@ -310,8 +314,8 @@ public class BankApplication implements UserInterface{
                 String address = UserInput.getStringInput("Type address: ");
 
                 if(
-                        Bank.getCustomers().contains(name) &&
-                        Bank.getCustomers().contains(address)
+                        Bank.CUSTOMERS.contains(name) &&
+                        Bank.CUSTOMERS.contains(address)
                 ){
                     System.err.println("This customer already exist");
                     break;
@@ -322,7 +326,7 @@ public class BankApplication implements UserInterface{
 
                 addNewCustomer(countryIndicator, address, name, password);
 
-                System.out.println(Bank.getCustomers());
+                System.out.println(Bank.CUSTOMERS);
             }
 
             case 5 -> {
@@ -330,13 +334,13 @@ public class BankApplication implements UserInterface{
                 System.out.println();
                 String name = UserInput.getStringInput("Type name: ");
 
-                if(!Bank.getCustomers().contains(name)){
-                    System.err.println("This customer doesn't exists yet!");
-                    operatorUI(operator);
+                if(Bank.CUSTOMERS.contains(name)){
+
+                    System.err.println("This customer doesn't exist yet!");
                     break;
                 }
 
-                    removeCustomer(name);
+                removeCustomer(name);
             }
 
             case 6 ->{
@@ -346,18 +350,9 @@ public class BankApplication implements UserInterface{
                 String name = UserInput.getStringInput("Name of customer: ");
                 String address = UserInput.getStringInput("Address of customer: ");
 
-                Customer person = null;
-                for (Customer customer : Bank.getCustomers()){
+                Customer person = Bank.getUser(name, Bank.CUSTOMERS);
 
-                    if(
-                            customer.getName().equals(name) &&
-                            customer.getAddress().equals(address)
-                    ){
-                        person = customer;
-                    }
-                }
-
-                if(person == null){
+                if(person == null || !address.equals(person.getAddress())){
                     System.err.println("This customer doesn't exists yet!");
                     operatorUI(operator);
                     break;
@@ -374,15 +369,9 @@ public class BankApplication implements UserInterface{
                 String name = UserInput.getStringInput("Name of customer: ");
                 String IBAN = UserInput.getStringInput("IBAN of account: ");
 
-                Customer person = null;
-                for (Customer customer : Bank.getCustomers()){
+                Customer person = Bank.getUser(name, Bank.CUSTOMERS);
 
-                    if(customer.getName().equals(name)){
-                        person = customer;
-                    }
-                }
-
-                if(person == null){
+                if(person == null || !IBAN.equals(person.getAccount(IBAN).getIBAN())){
                     System.err.println("This customer doesn't exists yet!");
                     operatorUI(operator);
                     break;
