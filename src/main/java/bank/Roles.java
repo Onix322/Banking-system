@@ -2,8 +2,8 @@ package bank;
 
 public enum Roles {
 
-    CUSTOMER("User/customer"),
-    EMPLOYEE("User/employee"),
+    CUSTOMER("user/customer"),
+    EMPLOYEE("user/employee"),
     OPERATOR("operator");
 
     public String role;

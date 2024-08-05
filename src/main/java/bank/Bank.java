@@ -1,9 +1,9 @@
 package bank;
 
-import User.employee.User;
-import User.customer.Customer;
-import User.employee.Employee;
-import User.employee.Operator;
+import user.employee.User;
+import user.customer.Customer;
+import user.employee.Employee;
+import user.employee.Operator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -2,9 +2,9 @@ package BankApplication;
 
 import bank.Bank;
 import bank.Roles;
-import User.customer.Customer;
-import User.employee.Employee;
-import User.employee.Operator;
+import user.customer.Customer;
+import user.employee.Employee;
+import user.employee.Operator;
 import transaction.Transaction;
 import utils.Console;
 import utils.IBANgenerator;

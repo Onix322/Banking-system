@@ -1,6 +1,6 @@
-package User.customer;
+package user.customer;
 
-import User.employee.User;
+import user.employee.User;
 import bank.Roles;
 import bankAccount.BankAccount;
 

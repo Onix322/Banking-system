@@ -1,6 +1,6 @@
 package BankApplication;
 
-import User.customer.Customer;
+import user.customer.Customer;
 import transaction.Transaction;
 
 import java.util.List;

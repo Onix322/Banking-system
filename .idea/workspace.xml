@@ -5,18 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1bc87c0-6e37-4700-a023-9a32435ef467" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/bank/Roles.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/employee/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/DateOfBird.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BankApplication/BankApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BankApplication/BankApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BankApplication/CustomerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BankApplication/CustomerInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BankApplication/OperatorInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BankApplication/OperatorInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BankApplication/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BankApplication/UserInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/User/customer/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/customer/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/User/employee/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/employee/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/User/employee/Operator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/employee/Operator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/User/employee/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/employee/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bank/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bank/Bank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bank/Branch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/customer/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/customer/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/employee/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/employee/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/employee/Operator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/employee/Operator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bank/Roles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bank/Roles.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

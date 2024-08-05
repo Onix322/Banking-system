@@ -1,4 +1,4 @@
-package User.employee;
+package user.employee;
 
 public interface User {
 

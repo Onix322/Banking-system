@@ -1,8 +1,8 @@
 package BankApplication;
 
 import bank.Bank;
-import User.customer.Customer;
-import User.employee.Employee;
+import user.customer.Customer;
+import user.employee.Employee;
 import transaction.Transaction;
 import utils.IBANgenerator;
 
