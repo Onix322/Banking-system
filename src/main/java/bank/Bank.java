@@ -1,6 +1,6 @@
 package bank;
 
-import user.employee.User;
+import user.User;
 import user.customer.Customer;
 import user.employee.Employee;
 import user.employee.Operator;
@@ -68,14 +68,14 @@ public class Bank{
 
     public static <E extends User> User logIn(List<E> list, String name, String password){
 
-        for(E ele : list){
+        for(E user : list){
 
             if(
-                    name.equals(ele.getName()) &&
-                    password.equals(ele.getPassword())
+                    name.equals(user.getName()) &&
+                    password.equals(user.getPassword())
             ){
 
-                return ele;
+                return user;
             }
         }
 

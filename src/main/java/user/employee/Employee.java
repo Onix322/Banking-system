@@ -1,6 +1,7 @@
 package user.employee;
 
 import bank.Roles;
+import user.User;
 
 import java.time.LocalDate;
 

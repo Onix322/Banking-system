@@ -15,7 +15,7 @@ import java.util.*;
 public class BankApplication implements UserInterface{
 
     private final List<Transaction> PENDING_TRANSACTIONS = new ArrayList<>();
-    private Object individualFound;
+    private Object userFound;
 
     public BankApplication(){}
 
@@ -37,29 +37,27 @@ public class BankApplication implements UserInterface{
 
                 System.err.println("Wrong choice! Please type a number from above.");
                 startApp();
-
             }
         }
     }
 
-    private void getUI(Object individual){
+    private void getUI(Object user){
 
+        if(user instanceof Customer){
 
-        if(individual instanceof Customer){
-
-            customerUI((Customer) individual);
+            customerUI((Customer) user);
         }
         else{
 
-            if(((Employee) individual).getRole().equals(Roles.EMPLOYEE)){
+            if(((Employee) user).getRole().equals(Roles.EMPLOYEE)){
 
-                employeeUI((Employee) individual);
+                employeeUI((Employee) user);
                 return;
             }
 
-            if(((Operator) individual).getRole().equals(Roles.OPERATOR)){
+            if(((Operator) user).getRole().equals(Roles.OPERATOR)){
 
-                operatorUI((Operator) individual);
+                operatorUI((Operator) user);
             }
         }
     }
@@ -73,14 +71,14 @@ public class BankApplication implements UserInterface{
         String name = UserInput.getStringInput("username: ");
         String password = UserInput.getStringInput("password: ");
 
-        individualFound = Bank.logIn(Bank.EMPLOYEES, name, password);
+        userFound = Bank.logIn(Bank.EMPLOYEES, name, password);
 
-        if(individualFound == null){
+        if(userFound == null){
             System.err.println("Wrong user or password! Try again...");
         }
 
-        while(individualFound != null){
-            getUI(individualFound);
+        while(userFound != null){
+            getUI(userFound);
         }
 
         startApp();
@@ -98,11 +96,15 @@ public class BankApplication implements UserInterface{
 
         Console.clear();
 
-        individualFound = Bank.logIn(Bank.CUSTOMERS, name, password);
+        userFound = Bank.logIn(Bank.CUSTOMERS, name, password);
 
-        while(individualFound != null){
+        if(userFound == null){
+            System.err.println("Wrong user or password! Try again...");
+        }
 
-            getUI(individualFound);
+        while(userFound != null){
+
+            getUI(userFound);
         }
 
         startApp();
@@ -213,7 +215,7 @@ public class BankApplication implements UserInterface{
             case 5 -> {
                 System.out.println();
                 exit();
-                individualFound = null;
+                userFound = null;
             }
 
             default -> {
@@ -242,7 +244,7 @@ public class BankApplication implements UserInterface{
 
             case 2 -> {
                 exit();
-                individualFound = null;
+                userFound = null;
             }
             default -> {
                 System.err.println("Wrong choice! Please type a number from above.");
@@ -382,7 +384,7 @@ public class BankApplication implements UserInterface{
 
             case 8 -> {
                 exit();
-                individualFound = null;
+                userFound = null;
             }
 
             default -> {
