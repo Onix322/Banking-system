@@ -71,8 +71,14 @@ public class Bank{
         for(E user : list){
 
             if(
+                (
                     name.equals(user.getName()) &&
-                    password.equals(user.getPassword())
+                    name.hashCode() == user.getName().hashCode()
+                ) &&
+                (
+                    password.equals(user.getPassword()) &&
+                    name.hashCode() == user.getName().hashCode()
+                )
             ){
 
                 return user;
